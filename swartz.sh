@@ -26,7 +26,7 @@ fi
 if [[ "$1" == "-u" ]]; then
 
     echo "Refreshing all cached URLs..."
-    echo -e "$(date -uI's')|updateall|*" >> $LOGFILE
+    echo "$(date -uI's')|updateall|*" >> $LOGFILE
 
     for url in $(cat hash_cache | cut -f2); do
     
@@ -55,7 +55,7 @@ if [[ "$1" == "-r" ]]; then
         grep -v $url hash_cache >> hash_cache.updated
         rm hash_cache
         mv hash_cache.updated hash_cache
-        echo "$(date -uI's'|remove|$url" >> $LOGFILE
+        echo "$(date -uI's')|remove|$url" >> $LOGFILE
         exit 0
 
     fi
@@ -88,7 +88,7 @@ else
 fi
 
 page_hash=$(echo $page_text | sha256sum | tr -d "\n *-")
-echo "$(date -uI's'|query|$url" >> $LOGFILE
+echo "$(date -uI's')|query|$url" >> $LOGFILE
 
 ## Check for previous page lookup in hash_cache
 cache_hit=$(grep -i $url hash_cache 2> /dev/null)
@@ -98,7 +98,7 @@ if [[ "$cache_hit" == "" ]]; then
     ## Cache miss
     echo -e "$page_hash\t$url" >> hash_cache
     >&2 echo "URL added to monitoring."
-    echo "$(date -uI's'|add|$url" >> $LOGFILE
+    echo "$(date -uI's')|add|$url" >> $LOGFILE
     exit 0
 
 else
@@ -121,7 +121,7 @@ else
         echo -e "$page_hash\t$url" >> hash_cache.updated
         rm hash_cache
         mv hash_cache.updated hash_cache
-        echo "$(date -uI's'|update|$url" >> $LOGFILE
+        echo "$(date -uI's')|update|$url" >> $LOGFILE
 
         >&2 echo "Content hash updated in hash_cache."
         exit 0
