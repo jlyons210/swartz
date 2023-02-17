@@ -17,13 +17,13 @@ LOGFILE="$(basename -- "${0%.*}").log"
 if [[ $# -eq 0 || "$1" == "--help" ]]; then
 
     >&2 echo "Usage:"
-    >&2 echo "  $0 url_to_check [-u | --update-all] [--help]"
-    >&2 exit 1
+    >&2 echo "  $0 url_to_check [-u] [-r url_to_remove] [--help]"
+    exit 1
 
 fi
 
 ## Check all cached URLs
-if [[ "$1" == "--update-all" || "$1" == "-u" ]]; then
+if [[ "$1" == "-u" ]]; then
 
     echo "Refreshing all cached URLs..."
     echo -e "$(date -uI's'):updateall|*" >> $LOGFILE
@@ -36,6 +36,29 @@ if [[ "$1" == "--update-all" || "$1" == "-u" ]]; then
     done
 
     exit 0
+
+fi
+
+## Remove URL from cache
+if [[ "$1" == "-r" ]]; then
+
+    if [[ "$2" == "" ]]; then
+
+        >&2 echo "Must provide a URL to remove when using the -r argument."
+        exit 1
+
+    else
+
+        url=$2
+        echo "Removing URLs from cache..."
+        grep -i $url hash_cache | cut -f2
+        grep -v $url hash_cache >> hash_cache.updated
+        rm hash_cache
+        mv hash_cache.updated hash_cache
+        echo "$(date -uI's'):remove|$url" >> $LOGFILE
+        exit 0
+
+    fi
 
 fi
 
