@@ -3,6 +3,6 @@
 user_agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0
 
 ## Stripping markup is useful in some cases where timestamps may occur within
-## tags. Changing this setting will invalidate all previous hashes, so an
-## --update-all is recommended after modifying this setting.
+## tags. Changing this setting will invalidate all previous hashes, so a -u
+## cache update is recommended after modifying this setting.
 strip_markup=yes
