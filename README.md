@@ -14,6 +14,9 @@ URL added to monitoring.
 $ ./swartz.sh https://cageworkorange.com
 URL added to monitoring.
 
+$ ./swartz.sh https://cageworkorange.com
+URL monitored - content has not changed.
+
 $ ./swartz.sh https://j9s.io
 URL monitored - content has changed.
 Content hash updated in hash_cache.
