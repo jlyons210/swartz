@@ -97,7 +97,7 @@ if [[ "$cache_hit" == "" ]]; then
 
     ## Cache miss
     echo -e "$page_hash\t$url" >> hash_cache
-    >&2 echo "URL added to monitoring."
+    echo "URL added to monitoring."
     echo "$(date -uI's')|add|$url" >> $LOGFILE
     exit 0
 
@@ -109,12 +109,12 @@ else
     if [[ "$page_hash" == "$cache_hash" ]]; then
     
         ## URL content hash equals cached hash
-        >&2 echo "URL monitored - content has not changed."
+        echo "URL monitored - content has not changed."
         exit 0
 
     else
     
-        >&2 echo "URL monitored - content has changed."
+        echo "URL monitored - content has changed."
         
         ## Update cache
         grep -v $url hash_cache >> hash_cache.updated
@@ -123,7 +123,7 @@ else
         mv hash_cache.updated hash_cache
         echo "$(date -uI's')|update|$url" >> $LOGFILE
 
-        >&2 echo "Content hash updated in hash_cache."
+        echo "Content hash updated in hash_cache."
         exit 0
 
     fi
